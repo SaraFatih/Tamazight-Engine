@@ -86,21 +86,11 @@ public class Main {
 
             return new ModelAndView(attributes, "count.ftl");
         }, new FreeMarkerEngine());
+    
     post("/secondParse", (request, response) -> {
       //names of the first word dropdown lists: characterFirstOne, characterFirstTwo,characterFirstThree
       //names of the second word dropdown lists: characterSecondOne, characterSecondTwo, characterSecondThree
-            /* WebDriver driver;
-            boolean chk = false;
-            try {
-
-                    chk=driver.findElement(By.name(characterFirstOne)).isDisplayed();
-                    return chk;
-                }  catch (NoSuchElementException e)
-                    {
-                    return false;//Control should go to catch but exception is not getting handled properly.
-                    }
-                    System.out.println(chk);
-                    */
+            
             Map<String, Object> attributes = new HashMap<>();
             String firstCharacter = request.queryParams("characterFirstOne");
             String secondCharacter = request.queryParams("characterFirstTwo");
@@ -108,17 +98,69 @@ public class Main {
             String fourthCharacter = request.queryParams("characterSecondOne");
             String fifthCharacter = request.queryParams("characterSecondTwo");
             String sixthCharacter = request.queryParams("characterSecondThree");
-            String firstWord = firstCharacter+secondCharacter+thirdCharacter;
-            String secondWord = fourthCharacter+fifthCharacter+sixthCharacter;
+            String firstWord="character";
+            String secondWord="character";
+            if(firstCharacter.equals("character") && !(secondCharacter.equals("character")) && !(thirdCharacter.equals("character"))){
+                firstWord=secondCharacter+thirdCharacter;
+            }
+            if(firstCharacter.equals("character") && secondCharacter.equals("character") && !(thirdCharacter.equals("character"))){
+                firstWord=thirdCharacter;
+            }
+            if(firstCharacter.equals("character") && secondCharacter.equals("character") && thirdCharacter.equals("character")){
+                firstWord="character";
+            }
+            if(firstCharacter.equals("character") && !(secondCharacter.equals("character")) && thirdCharacter.equals("character")){
+                firstWord=secondCharacter;
+            }
+            if(!(firstCharacter.equals("character")) && !(secondCharacter.equals("character")) && !(thirdCharacter.equals("character"))){
+                firstWord=firstCharacter+secondCharacter+thirdCharacter;
+            }
+            if(!(firstCharacter.equals("character")) && secondCharacter.equals("character") && thirdCharacter.equals("character")){
+                firstWord=firstCharacter;
+            }
+            if(!(firstCharacter.equals("character")) && !(secondCharacter.equals("character")) && thirdCharacter.equals("character")){
+                firstWord=firstCharacter+secondCharacter;
+            }
+            if(!(firstCharacter.equals("character")) && secondCharacter.equals("character") && !(thirdCharacter.equals("character"))){
+                firstWord=firstCharacter+thirdCharacter;
+            }
+            //-------------------------------------
+            if(fourthCharacter.equals("character") && !(fifthCharacter.equals("character")) && !(sixthCharacter.equals("character"))){
+                secondWord=fifthCharacter+sixthCharacter;
+            }
+            if(fourthCharacter.equals("character") && fifthCharacter.equals("character") && !(sixthCharacter.equals("character"))){
+                secondWord=sixthCharacter;
+            }
+            if(fourthCharacter.equals("character") && fifthCharacter.equals("character") && sixthCharacter.equals("character")){
+                secondWord="character";
+            }
+            if(fourthCharacter.equals("character") && !(fifthCharacter.equals("character")) && sixthCharacter.equals("character")){
+                secondWord=fifthCharacter;
+            }
+            if(!(fourthCharacter.equals("character")) && !(fifthCharacter.equals("character")) && !(sixthCharacter.equals("character"))){
+                secondWord=fourthCharacter+fifthCharacter+sixthCharacter;
+            }
+            if(!(fourthCharacter.equals("character")) && fifthCharacter.equals("character") && sixthCharacter.equals("character")){
+                secondWord=fourthCharacter;
+            }
+            if(!(fourthCharacter.equals("character")) && !(fifthCharacter.equals("character")) && sixthCharacter.equals("character")){
+                secondWord=fourthCharacter+fifthCharacter;
+            }
+            if(!(fourthCharacter.equals("character")) && fifthCharacter.equals("character") && !(sixthCharacter.equals("character"))){
+                secondWord=fourthCharacter+sixthCharacter;
+            }
+
+            
             ParsingTwo parsing = new ParsingTwo();
             List<String> myResult = new ArrayList<String>(); 
             myResult=parsing.twoParsing(firstWord,secondWord);
-            attributes.put("resultsOne", myResult);
+            Set<String> set = new TreeSet<String>(myResult);
+            attributes.put("resultsOne", set/*myResult*/);
             
             return new ModelAndView(attributes, "parseTwo.ftl");
         }, new FreeMarkerEngine());
    
-
+    
 
   }
 
